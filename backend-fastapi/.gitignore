@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Environnement & base de données locale
+.env
+*.db
+*.sqlite
+*.sqlite3
+
+# Outils
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
