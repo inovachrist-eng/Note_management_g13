@@ -2,10 +2,16 @@
 
 Application web de gestion des **notes et résultats scolaires**, organisée par année académique → semestre → module → matière → note. Un utilisateur gère son propre cursus : il crée ses années, y ajoute des semestres, des modules de cours, des matières, puis saisit ses notes.
 
-L'application est découpée en deux parties indépendantes :
+L'application est découpée en parties indépendantes :
 
 - **`backend/`** — API REST en **Laravel** (PHP), authentification par token.
+- **`backend-fastapi/`** — la **même** API réécrite en **FastAPI** (Python). Contrat identique.
 - **`frontend/`** — Interface **React + Vite**, qui consomme l'API.
+
+> 🔁 **Deux backends interchangeables :** le frontend consomme `http://127.0.0.1:8000/api`.
+> Vous pouvez lancer **soit** Laravel **soit** FastAPI sur le **port 8000** — les deux exposent
+> exactement les mêmes routes et le même JSON, donc le frontend fonctionne avec l'un comme
+> avec l'autre, sans aucune modification. (Un seul à la fois : ils partagent le port 8000.)
 
 > 🎓 **Nouveau sur Laravel ou React ?** Lisez le [**Guide éducatif (GUIDE.md)**](GUIDE.md) : il explique pas à pas, avec de vrais extraits du code, comment le projet est construit des deux côtés.
 
@@ -32,6 +38,9 @@ Projet/
 │   │   └── Mail/                   # MagicLinkMail (email de connexion)
 │   ├── database/migrations/        # Schéma de la base
 │   └── routes/api.php              # Toutes les routes de l'API
+│
+├── backend-fastapi/        # MÊME API réécrite en FastAPI (Python) — voir son README
+│   └── app/                        # core/ db/ models/ schemas/ routers/ (architecture en couches)
 │
 ├── frontend/               # Interface React (Vite)
 │   └── src/
@@ -65,11 +74,16 @@ Chaque niveau possède un `order_number` pour gérer l'ordre d'affichage.
 ## Démarrage rapide
 
 ### Prérequis
-- PHP **8.3+** et Composer
-- Node.js **18+** et npm
-- Une base de données (MySQL, ou SQLite pour le développement)
+- **Pour le backend Laravel** : PHP **8.3+** et Composer
+- **Pour le backend FastAPI** : Python **3.11+**
+- Node.js **18+** et npm (frontend)
+- Une base de données (MySQL/SQLite pour Laravel ; SQLite par défaut pour FastAPI)
 
-### 1. Backend (Laravel)
+### 1. Backend — au choix : Laravel **OU** FastAPI (même API, port 8000)
+
+> Lancez **un seul** des deux : ils servent la même API sur le port 8000.
+
+**Option A — Laravel (PHP) :**
 
 ```bash
 cd backend
@@ -79,6 +93,19 @@ php artisan key:generate
 php artisan migrate
 php artisan serve             # → http://127.0.0.1:8000
 ```
+
+**Option B — FastAPI (Python) :**
+
+```bash
+cd backend-fastapi
+python -m venv .venv
+.venv\Scripts\activate        # Windows  (source .venv/bin/activate sur macOS/Linux)
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000   # → http://127.0.0.1:8000  (doc : /docs)
+```
+
+> Dans les deux cas le frontend fonctionne à l'identique. Détails FastAPI :
+> [`backend-fastapi/README.md`](backend-fastapi/README.md).
 
 ### 2. Frontend (React + Vite)
 
