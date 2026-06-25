@@ -7,6 +7,8 @@ L'application est découpée en deux parties indépendantes :
 - **`backend/`** — API REST en **Laravel** (PHP), authentification par token.
 - **`frontend/`** — Interface **React + Vite**, qui consomme l'API.
 
+> 🎓 **Nouveau sur Laravel ou React ?** Lisez le [**Guide éducatif (GUIDE.md)**](GUIDE.md) : il explique pas à pas, avec de vrais extraits du code, comment le projet est construit des deux côtés.
+
 ---
 
 ## Stack technique
