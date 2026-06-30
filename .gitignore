@@ -3,6 +3,9 @@
 *.o
 *.obj
 
+# Distribution nginx vendorisée (binaires + build copié dans html/)
+nginx-1.30.3/
+
 # OS / editor
 .DS_Store
 Thumbs.db
